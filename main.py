@@ -1,9 +1,9 @@
 import Voice_to_text as vt
 import body_assistant as bs
 
-stop = 1
+voice = 'f'
 
-while(stop):
+while(voice != 's'):
     text = vt.voicetotext()
     print(text)
-    stop = bs.body(text)
+    voice = bs.body(text, voice)

@@ -2,3 +2,4 @@ temp.py
 venv/
 .idea
 __pycache__/
+.google-cookie
