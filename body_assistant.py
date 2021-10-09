@@ -9,13 +9,25 @@ def body(text, voice = 'f'):
         voicetext = howareyou()
         tv.voice(voicetext, gender=voice)
 
+    # introduction line
+    elif ('your' in text and 'introduction') or ('introduce' in text and 'yourself' in text) or ('who' in text and 'are' in text and 'you' in text):
+        tv.voice("Hii, I am Student Assistant.\n              "
+                 "I will help you in study.\n              "
+                 "You can ask me anything.\n", gender=voice)
+
+    elif 'tell' in text and 'me' in text and 'joke' in text:
+        voicetext = joke()
+        tv.voice(voicetext, gender=voice)
+
     # change voice
     elif 'change' in text and 'voice' in text:
         if voice == 'm':
-            tv.voice("Here's an example of one of my other voices.\n              I will be happy to help you.\n", gender='f')
+            tv.voice("Here's an example of one of my other voices.\n              "
+                     "I will be happy to help you.\n", gender='f')
             return 'f'
         else:
-            tv.voice("Here's an example of one of my other voices.\n              I will be happy to help you.\n", gender='m')
+            tv.voice("Here's an example of one of my other voices.\n              "
+                     "I will be happy to help you.\n", gender='m')
             return 'm'
 
     elif 'open' in text and 'certificate' in text:
@@ -30,7 +42,8 @@ def body(text, voice = 'f'):
 
     # hi hello answers
     elif 'hi' in text or 'hello' in text or 'hey' in text or 'hay' in text or 'hai' in text:
-        tv.voice("Hii, I hope your day goes great.\n              I'm  always here if you need me.\n", gender=voice)
+        tv.voice("Hii, I hope your day goes great.\n              "
+                 "I'm  always here if you need me.\n", gender=voice)
 
     else:
         tv.voice("Sorry, I'm having trouble understanding.\n", gender=voice)
@@ -45,6 +58,16 @@ def howareyou():
             "I would say I am navigating somewhere between good and better.\n",
             "I'm quite fine. Thanks for asking.\n"]
     return random.choice(list)
+
+def joke():
+    list = ["Why did the picture go to jail?\n              Because it was framed.\n",
+            "What do horses say when they fall?\n              Help, I’ve fallen and I can’t giddy up.\n",
+            "What do you call shoes made of banana peels?\n              Slippers.\n",
+            "Why did the bicycle collapse?\n              It was two tired.\n",
+            "Why did the restaurant hire a pig?\n              He was good at bacon.\n"]
+    return random.choice(list)
+
+
 
  # elif ('show' in text or 'search' in text) and ('images' in text or 'image' in text):
  #        print(text)
