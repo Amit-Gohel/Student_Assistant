@@ -9,6 +9,7 @@ def voicetotext():
 
         try:
             text = r.recognize_google(audio)
+            text = text.lower()
             return text
         except:
             text = "sorry could not recognize your voice"
