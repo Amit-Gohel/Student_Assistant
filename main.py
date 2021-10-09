@@ -5,5 +5,5 @@ voice = 'f'
 
 while(voice != 's'):
     text = vt.voicetotext()
-    print(text)
+    print("   You    :- ", text)
     voice = bs.body(text, voice)

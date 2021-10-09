@@ -4,7 +4,7 @@ def voicetotext():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        print("Speck anything : ")
+        print("Speck anything :- \n")
         audio = r.listen(source)
 
         try:
