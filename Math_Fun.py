@@ -2,9 +2,14 @@ import math
 
 def basic_math(text):
     text = text.split(" ")
+    print(type(text))
     x = 1
     answ = 0
     try:
+        if text[x+1] == '-':
+            del text[x+1]
+            text[x+1] = -float(text[x+1])
+
         if text[x] == '+':
             answ = float(text[x - 1]) + float(text[x + 1])
         elif text[x] == '-':
@@ -16,6 +21,10 @@ def basic_math(text):
         x = x + 2
 
         while (x < len(text)):
+            if text[x + 1] == '-':
+                del text[x + 1]
+                text[x + 1] = -float(text[x + 1])
+
             if text[x] == '+':
                 answ = answ + float(text[x + 1])
             elif text[x] == '-':
@@ -71,4 +80,3 @@ def root(text):
 
 
 
-# do work for -input.
