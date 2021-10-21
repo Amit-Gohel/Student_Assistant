@@ -1,6 +1,7 @@
 import Text_to_Voice as tv
 import os
 import random
+import Math_Fun as mf
 
 def body(text, voice = 'f'):
 
@@ -8,6 +9,11 @@ def body(text, voice = 'f'):
     if 'how' in text and 'are' in text and 'you' in text:
         voicetext = howareyou()
         tv.voice(voicetext, gender=voice)
+
+    elif '+' in text or '-' in text or 'x' in text or '/' in text:
+        text = text_split_num(text)
+        answ = mf.basic_math(text[1])
+        tv.voice(answ + '\n', gender=voice)
 
     # introduction line
     elif ('your' in text and 'introduction') or ('introduce' in text and 'yourself' in text) or ('who' in text and 'are' in text and 'you' in text):
@@ -36,7 +42,7 @@ def body(text, voice = 'f'):
         return 's'
 
     # stop assistant
-    elif 'stop' in text and 'assistant' in text:
+    elif ('stop' in text or 'store' in text) and 'assistant' in text:
         tv.voice("Thank you.. We will meet soon.\n", gender=voice)
         return 's'
 
@@ -68,7 +74,37 @@ def joke():
     return random.choice(list)
 
 
+def text_split_num(text):
+    if 'sum of ' in text:
+        text = text.split('sum of ')
+    elif 'subtraction of' in text:
+        text = text.split('subtraction of ')
+    elif 'multiplication of' in text:
+        text = text.split('multiplication of ')
+    elif 'division of' in text:
+        text = text.split('division of ')
+    elif 'answer of' in text:
+        text = text.split('answer of ')
+    elif 'equation is' in text:
+        text = text.split('equation is ')
+    elif 'equation' in text:
+        text = text.split('equation')
+    elif 'answer' in text:
+        text = text.split('answer')
 
- # elif ('show' in text or 'search' in text) and ('images' in text or 'image' in text):
+    elif 'sum' in text:
+        text = text.split('sum ')
+    elif 'subtraction' in text:
+        text = text.split('subtraction ')
+    elif 'multiplication' in text:
+        text = text.split('multiplication ')
+    elif 'division' in text:
+        text = text.split('division ')
+    elif '' in text:
+        pass
+
+    return text
+
+# elif ('show' in text or 'search' in text) and ('images' in text or 'image' in text):
  #        print(text)
  #        # googlesearch-python
