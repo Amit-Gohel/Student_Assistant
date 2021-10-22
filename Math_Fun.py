@@ -63,6 +63,4 @@ def tangent_function(text, num):
         return "Something went wrong."
 
 
-# byneri
-
 

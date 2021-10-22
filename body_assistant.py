@@ -63,11 +63,6 @@ def body(text, voice = 'f'):
         ans = "{:.2f}".format(ans)
         tv.voice(f'Answer of root {text[-1]} is {ans}\n', gender=voice)
 
-    elif 'root' in text:
-        text = text.split(" ")
-        ans = bin(int(text[-1]))
-        tv.voice(f'Answer of {text[-1]} is {ans}\n', gender=voice)
-
     # introduction line
     elif ('your' in text and 'introduction' in text) or ('introduce' in text and 'yourself' in text) or ('who' in text and 'are' in text and 'you' in text):
         tv.voice("Hii, I am Student Assistant.\n              "
