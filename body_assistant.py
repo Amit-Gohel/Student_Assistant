@@ -1,3 +1,5 @@
+import math
+
 import Text_to_Voice as tv
 import os
 import random
@@ -11,12 +13,63 @@ def body(text, voice = 'f'):
         tv.voice(voicetext, gender=voice)
 
     elif '+' in text or '-' in text or 'x' in text or '/' in text:
-        text = text_split_num(text)
+        text = bacis_split_num(text)
         answ = mf.basic_math(text[1])
         tv.voice(answ + '\n', gender=voice)
 
+    elif 'sin' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 1)
+        tv.voice(answ + '\n', gender=voice)
+    elif 'cos' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 2)
+        tv.voice(answ + '\n', gender=voice)
+    elif 'tan' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 3)
+        tv.voice(answ + '\n', gender=voice)
+    elif 'cosec' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 4)
+        tv.voice(answ + '\n', gender=voice)
+    elif 'sec' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 5)
+        tv.voice(answ + '\n', gender=voice)
+    elif 'cot' in text and ('answer' in text or 'value' in text):
+        text = tangent_function_split(text)
+        answ = mf.tangent_function(text[1], 6)
+        tv.voice(answ + '\n', gender=voice)
+
+    elif 'factorial' in text and ('answer' in text or 'value' in text):
+        text = text.split(" ")
+        try:
+            ans = math.factorial(int(text[-2]))
+            tv.voice(f'Answer of {text[-2]} factorial is {ans}\n', gender=voice)
+        except:
+            ans = math.factorial(int(text[-1]))
+            tv.voice(f'Answer of log {text[-1]} factorial is {ans}\n', gender=voice)
+
+    elif 'log' in text and ('answer' in text or 'value' in text):
+        text = text.split(" ")
+        ans = math.log(float(text[-1]), 10)
+        ans = "{:.2f}".format(ans)
+        tv.voice(f'Answer of log {text[-1]} is {ans}\n', gender=voice)
+
+    elif 'root' in text:
+        text = text.split(" ")
+        ans = math.sqrt(float(text[-1]))
+        ans = "{:.2f}".format(ans)
+        tv.voice(f'Answer of root {text[-1]} is {ans}\n', gender=voice)
+
+    elif 'root' in text:
+        text = text.split(" ")
+        ans = bin(int(text[-1]))
+        tv.voice(f'Answer of {text[-1]} is {ans}\n', gender=voice)
+
     # introduction line
-    elif ('your' in text and 'introduction') or ('introduce' in text and 'yourself' in text) or ('who' in text and 'are' in text and 'you' in text):
+    elif ('your' in text and 'introduction' in text) or ('introduce' in text and 'yourself' in text) or ('who' in text and 'are' in text and 'you' in text):
         tv.voice("Hii, I am Student Assistant.\n              "
                  "I will help you in study.\n              "
                  "You can ask me anything.\n", gender=voice)
@@ -42,7 +95,7 @@ def body(text, voice = 'f'):
         return 's'
 
     # stop assistant
-    elif ('stop' in text or 'store' in text) and 'assistant' in text:
+    elif ('stop' in text or 'store' in text or 'top' in text) and 'assistant' in text:
         tv.voice("Thank you.. We will meet soon.\n", gender=voice)
         return 's'
 
@@ -74,7 +127,7 @@ def joke():
     return random.choice(list)
 
 
-def text_split_num(text):
+def bacis_split_num(text):
     if 'sum of ' in text:
         text = text.split('sum of ')
     elif 'subtraction of' in text:
@@ -100,9 +153,23 @@ def text_split_num(text):
         text = text.split('multiplication ')
     elif 'division' in text:
         text = text.split('division ')
-    elif '' in text:
-        pass
+    return text
 
+def tangent_function_split(text):
+    if 'sin' in text:
+        text = text.split('sin ')
+    elif 'cos' in text:
+        text = text.split('cos ')
+    elif 'cosin' in text:
+        text = text.split('cosin ')
+    elif 'tan' in text:
+        text = text.split('tan ')
+    elif 'cosec' in text:
+        text = text.split('cosec ')
+    elif 'sec' in text:
+        text = text.split('sec ')
+    elif 'cot' in text:
+        text = text.split('cot ')
     return text
 
 # elif ('show' in text or 'search' in text) and ('images' in text or 'image' in text):
