@@ -1,5 +1,4 @@
 import math
-
 import Text_to_Voice as tv
 import os
 import random
@@ -14,35 +13,39 @@ def body(text, voice = 'f'):
 
     elif '+' in text or '-' in text or 'x' in text or '/' in text:
         text = bacis_split_num(text)
-        answ = mf.basic_math(text[1])
+        answ = mf.basic_math(text)
         tv.voice(answ + '\n', gender=voice)
 
-    elif 'sin' in text and ('answer' in text or 'value' in text):
+    elif 'sin' in text:
         text = tangent_function_split(text)
         answ = mf.tangent_function(text[1], 1)
         tv.voice(answ + '\n', gender=voice)
-    elif 'cos' in text and ('answer' in text or 'value' in text):
+    elif 'cos' in text:
         text = tangent_function_split(text)
         answ = mf.tangent_function(text[1], 2)
         tv.voice(answ + '\n', gender=voice)
-    elif 'tan' in text and ('answer' in text or 'value' in text):
+    elif 'tan' in text:
         text = tangent_function_split(text)
-        answ = mf.tangent_function(text[1], 3)
-        tv.voice(answ + '\n', gender=voice)
-    elif 'cosec' in text and ('answer' in text or 'value' in text):
+        print(text[1])
+        if int(text[1]) == 90:
+            tv.voice('Something went wrong\n', gender=voice)
+        else:
+            answ = mf.tangent_function(text[1], 3)
+            tv.voice(answ + '\n', gender=voice)
+    elif 'cosec' in text:
         text = tangent_function_split(text)
         answ = mf.tangent_function(text[1], 4)
         tv.voice(answ + '\n', gender=voice)
-    elif 'sec' in text and ('answer' in text or 'value' in text):
+    elif 'sec' in text:
         text = tangent_function_split(text)
         answ = mf.tangent_function(text[1], 5)
         tv.voice(answ + '\n', gender=voice)
-    elif 'cot' in text and ('answer' in text or 'value' in text):
+    elif 'cot' in text:
         text = tangent_function_split(text)
         answ = mf.tangent_function(text[1], 6)
         tv.voice(answ + '\n', gender=voice)
 
-    elif 'factorial' in text and ('answer' in text or 'value' in text):
+    elif 'factorial' in text:
         text = text.split(" ")
         try:
             ans = math.factorial(int(text[-2]))
@@ -51,11 +54,14 @@ def body(text, voice = 'f'):
             ans = math.factorial(int(text[-1]))
             tv.voice(f'Answer of log {text[-1]} factorial is {ans}\n', gender=voice)
 
-    elif 'log' in text and ('answer' in text or 'value' in text):
+    elif 'log' in text:
         text = text.split(" ")
-        ans = math.log(float(text[-1]), 10)
-        ans = "{:.2f}".format(ans)
-        tv.voice(f'Answer of log {text[-1]} is {ans}\n', gender=voice)
+        try:
+            ans = math.log(float(text[-1]), 10)
+            ans = "{:.2f}".format(ans)
+            tv.voice(f'Answer of log {text[-1]} is {ans}\n', gender=voice)
+        except:
+            tv.voice(f'Something went wrong.\n', gender=voice)
 
     elif 'root' in text:
         text = text.split(" ")
@@ -121,10 +127,13 @@ def joke():
             "Why did the restaurant hire a pig?\n              He was good at bacon.\n"]
     return random.choice(list)
 
-
 def bacis_split_num(text):
     if 'sum of ' in text:
         text = text.split('sum of ')
+    elif 'value of' in text:
+        text = text.split('value of ')
+    elif 'value' in text:
+        text = text.split('value')
     elif 'subtraction of' in text:
         text = text.split('subtraction of ')
     elif 'multiplication of' in text:
@@ -148,6 +157,8 @@ def bacis_split_num(text):
         text = text.split('multiplication ')
     elif 'division' in text:
         text = text.split('division ')
+    if type(text) == list:
+        return text[1]
     return text
 
 def tangent_function_split(text):

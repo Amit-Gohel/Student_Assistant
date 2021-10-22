@@ -44,7 +44,6 @@ def basic_math(text):
 def tangent_function(text, num):
     try:
         if num == 1:
-            print(int(text))
             answ = math.sin(math.radians(int(text)))
         elif num == 2:
             answ = math.cos(math.radians(int(text)))
@@ -61,6 +60,11 @@ def tangent_function(text, num):
         return f"The answer is {answ}."
     except:
         return "Something went wrong."
+
+
+
+
+# tan 90, cot 0, cosin 0, sec 90 ma error na aavi joye
 
 
 
