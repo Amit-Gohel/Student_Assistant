@@ -27,7 +27,7 @@ def body(text, voice = 'f'):
         text = mf.tangent_function_split(text)
         answ = mf.tangent_function(text[1], 2)
         tv.voice(answ + '\n', gender=voice)
-    elif 'tan' in text:
+    elif 'tan ' in text:
         text = mf.tangent_function_split(text)
         print(text[1])
         if int(text[1]) == 90:
