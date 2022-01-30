@@ -3,14 +3,24 @@ import Text_to_Voice as tv
 import os
 import Math_Fun as mf
 import Random_function as nf
+from datetime import datetime
 
-
-def body(text, voice = 'f'):
-
+def body(text, voice='f'):
+    not_understan = False
     # How are you
     if 'how' in text and 'are' in text and 'you' in text:
         voicetext = nf.howareyou()
         tv.voice(voicetext, gender=voice)
+
+    elif ('current' in text or 'today' in text) and 'date' in text:
+        now = datetime.now()
+        now = now.strftime("%d %B %Y")
+        tv.voice(f"Today date is {now}.\n", gender=voice)
+
+    elif 'current' in text and 'time' in text:
+        now = datetime.now()
+        now = now.strftime("%H:%M:%S")
+        tv.voice(f"Current time is {now}.\n", gender=voice)
 
     # Bacis maths function
     elif '+' in text or '-' in text or 'x' in text or '/' in text:
@@ -91,22 +101,22 @@ def body(text, voice = 'f'):
         if voice == 'm':
             tv.voice("Here's an example of one of my other voices.\n              "
                      "I will be happy to help you.\n", gender='f')
-            return 'f'
+            return 'f', not_understan
         else:
             tv.voice("Here's an example of one of my other voices.\n              "
                      "I will be happy to help you.\n", gender='m')
-            return 'm'
+            return 'm', not_understan
 
     # Open certificate function
     elif 'open' in text and 'certificate' in text:
         os.system('Assets\GOOGEL_CODE_COMPETITION.pdf')
         tv.voice("Here's your certificate\n", gender=voice)
-        return 's'
+        return 's', not_understan
 
     # stop assistant
     elif ('stop' in text or 'store' in text or 'top' in text) and 'assistant' in text:
         tv.voice("Thank you.. We will meet soon.\n", gender=voice)
-        return 's'
+        return 's', not_understan
 
     # hi hello answers
     elif 'hi' in text or 'hello' in text or 'hey' in text or 'hay' in text or 'hai' in text:
@@ -116,6 +126,5 @@ def body(text, voice = 'f'):
     # If assistant dose not understand
     else:
         tv.voice("Sorry, I'm having trouble understanding.\n", gender=voice)
-
-    return voice
-
+        not_understan = True
+    return voice, not_understan
